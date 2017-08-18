@@ -14,10 +14,15 @@ import {
   Animated,
   PanResponder,
   Dimensions,
-  Easing
+  Easing,
+  Image,
+  ScrollView
 } from 'react-native';
 
-const SCREENHEIGHT = Dimensions.get('window').height
+const SCREENHEIGHT = Dimensions.get('window').height;
+const SCREENWIDTH = Dimensions.get('window').width;
+const DRAWER_WIDTH = SCREENWIDTH/1.5
+
 let drawerMotion;
 
 export default class drawer extends Component {
@@ -41,7 +46,7 @@ export default class drawer extends Component {
           Animated.timing(
               this.state.animation,
               {
-                toValue:-(200 - gestureState.dx),
+                toValue:-(DRAWER_WIDTH - gestureState.dx),
                 duration:500
               }
           ).start( () => this.state.animation.flattenOffset())
@@ -58,7 +63,7 @@ export default class drawer extends Component {
             Animated.timing(
                 this.state.animation,
                 {
-                    toValue:-(200 - gestureState.dx),
+                    toValue:-(DRAWER_WIDTH - gestureState.dx),
                     duration:500
                 }
             ).start( () => this.state.animation.flattenOffset())
@@ -72,17 +77,6 @@ export default class drawer extends Component {
     })
   }
 
-  showDrawer(){
-    Animated.timing(
-      this.state.animation,
-      {
-        toValue:0,
-        duration:500,
-        easing:Easing.linear
-      }
-    ).start();
-  }
-
   state={
     animation : new Animated.Value(0)
   }
@@ -90,13 +84,38 @@ export default class drawer extends Component {
   render() {
       drawerMotion = this.state.animation.interpolate({
       inputRange: [0,100],
-      outputRange:[-200,0],
+      outputRange:[-DRAWER_WIDTH,0],
       extrapolate:'clamp'
     })
     return (
-      <View style={{flex:1,backgroundColor:'yellowgreen', justifyContent:'center'}} {...this._panResponder.panHandlers}>
-        <Animated.View style={{backgroundColor:'cyan',height:SCREENHEIGHT ,width:200,transform:[{translateX:drawerMotion}]}}>
-          <Text>Hello</Text>
+      <View style={{flex:1,backgroundColor:'#ffa07a', justifyContent:'center'}} {...this._panResponder.panHandlers}>
+        <Animated.View style={{height:SCREENHEIGHT ,width:DRAWER_WIDTH,transform:[{translateX:drawerMotion}]}}>
+          <View style={{flex:1, backgroundColor:"#e0ffff"}}>
+              <View style={{flex:3, justifyContent:'flex-end', alignItems:'center'}}>
+                <Image source={require('./images/man_utd.jpg')} style={{height:130, width:130, borderRadius:65}} />
+              </View>
+              <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                <Text style={{color:'#2e8b57', fontWeight:'500'}}>Shubhnik Singh</Text>
+                <Text style={{color:'#2e8b57', fontWeight:'500'}}>Chandigarh, India</Text>
+                <Text style={{color:'#2e8b57', fontWeight:'500'}}>Manchester United</Text>
+              </View>
+          </View>
+          <View style={{flex:1, backgroundColor:'#fffacd'}}>
+              <ScrollView>
+                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                    <Text>REACT-NATIVE</Text>
+                </View>
+                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                    <Text>REDUX</Text>
+                </View>
+                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                    <Text>REACT</Text>
+                </View>
+                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                    <Text>GraphQL</Text>
+                </View>
+              </ScrollView>
+          </View>
         </Animated.View>
 
       </View>

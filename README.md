@@ -1,2 +1,3 @@
 # react-native-animation2
-Playing with react-native animations
+
+Drawer like animation, made while i was experimenting with RN animations.
