@@ -25,73 +25,43 @@ export default class drawer extends Component {
   componentWillMount(){
     this._panResponder = PanResponder.create({
 
-      onStartShouldSetPanResponder: (e, gestureState) => {
-        return true;
-        //alert(JSON.stringify(gestureState))
-      },
+      onStartShouldSetPanResponder: (e, gestureState) => true,
 
-      onMoveShouldSetPanResponder: (e, gestureState) => {
-        //this.state.animation.setOffset({x:this.state.animation.x._value, y:this.state.animation.y._value})
-        return true;
-      },
-
-      //onMoveShouldSetResponderCapture: () => true,
-      //onMoveShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponder: (e, gestureState) => true,
 
       onPanResponderGrant: (e, gestureState) => {
-        //console.log("**GRant" + JSON.stringify(this.state.animation))
         this.state.animation.setOffset(this.state.animation._value);
-        //this.state.animation.setValue(0)
-        //alert(JSON.stringify(this.state.pan))
       },
 
       onPanResponderRelease: (e, gestureState) => {
-        //alert('gestureRelease')
-        //alert(JSON.stringify(gestureState))
         if(gestureState.dx>100){
-          //alert('>100')
-          // Animated.timing(
-          //   this.state.animation.x,
-          //   {
-          //     toValue:200,
-          //     duration:500
-          //   }
-          // ).start()
           this.state.animation.flattenOffset()
         }
         if(gestureState.dx < 0){
-          //alert('<0')
           Animated.timing(
               this.state.animation,
               {
                 toValue:-(200 - gestureState.dx),
-                duration:500,
-                  //useNativeDriver:true
+                duration:500
               }
           ).start( () => this.state.animation.flattenOffset())
         }
         if(gestureState.dx<100 && gestureState.dx > 0){
-          //alert("<125")
            Animated.timing(
              this.state.animation,
              {
                toValue:-(gestureState.dx),
-               duration:500,
-               //useNativeDriver:true
+               duration:500
              }
            ).start(()=>this.state.animation.flattenOffset())
-           //this.state.animation.flattenOffset();
         }else if(gestureState.dx == 0){
-          //alert(JSON.stringify(gestureState))
             Animated.timing(
                 this.state.animation,
                 {
                     toValue:-(200 - gestureState.dx),
-                    duration:500,
-                    //useNativeDriver:true
+                    duration:500
                 }
             ).start( () => this.state.animation.flattenOffset())
-           //this.state.animation.flattenOffset();
         }
         
       },
@@ -121,9 +91,7 @@ export default class drawer extends Component {
       drawerMotion = this.state.animation.interpolate({
       inputRange: [0,100],
       outputRange:[-200,0],
-      extrapolate:'clamp',
-          //easing:Easing.linear,
-      //useNativeDriver:true
+      extrapolate:'clamp'
     })
     return (
       <View style={{flex:1,backgroundColor:'yellowgreen', justifyContent:'center'}} {...this._panResponder.panHandlers}>
