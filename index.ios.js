@@ -88,30 +88,30 @@ export default class drawer extends Component {
       extrapolate:'clamp'
     })
     return (
-      <View style={{flex:1,backgroundColor:'#ffa07a', justifyContent:'center'}} {...this._panResponder.panHandlers}>
+      <View style={styles.container} {...this._panResponder.panHandlers}>
         <Animated.View style={{height:SCREENHEIGHT ,width:DRAWER_WIDTH,transform:[{translateX:drawerMotion}]}}>
-          <View style={{flex:1, backgroundColor:"#e0ffff"}}>
-              <View style={{flex:3, justifyContent:'flex-end', alignItems:'center'}}>
-                <Image source={require('./images/man_utd.jpg')} style={{height:130, width:130, borderRadius:65}} />
+          <View style={styles.drawerUpperView}>
+              <View style={styles.imageViewStyles}>
+                <Image source={require('./images/man_utd.jpg')} style={styles.imageStyles} />
               </View>
-              <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                <Text style={{color:'#2e8b57', fontWeight:'500'}}>Shubhnik Singh</Text>
-                <Text style={{color:'#2e8b57', fontWeight:'500'}}>Chandigarh, India</Text>
-                <Text style={{color:'#2e8b57', fontWeight:'500'}}>Manchester United</Text>
+              <View style={styles.userInfoView}>
+                <Text style={styles.userInfoContent}>Shubhnik Singh</Text>
+                <Text style={styles.userInfoContent}>Chandigarh, India</Text>
+                <Text style={styles.userInfoContent}>Manchester United</Text>
               </View>
           </View>
-          <View style={{flex:1, backgroundColor:'#fffacd'}}>
+          <View style={styles.drawerList}>
               <ScrollView>
-                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                <View style={styles.listItem}>
                     <Text>REACT-NATIVE</Text>
                 </View>
-                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                <View style={styles.listItem}>
                     <Text>REDUX</Text>
                 </View>
-                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                <View style={styles.listItem}>
                     <Text>REACT</Text>
                 </View>
-                <View style={{height:75, paddingLeft:10, justifyContent:'center'}}>
+                <View style={styles.listItem}>
                     <Text>GraphQL</Text>
                 </View>
               </ScrollView>
@@ -125,21 +125,42 @@ export default class drawer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flex:1,
+    backgroundColor:'#ffa07a', 
+    justifyContent:'center'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  drawerUpperView:{
+    flex:1,
+    backgroundColor:"#e0ffff"
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  imageViewStyles:{
+    flex:3,
+    justifyContent:'flex-end',
+    alignItems:'center'
   },
+  imageStyles:{
+    height:130,
+    width:130, 
+    borderRadius:65
+  },
+  userInfoView:{
+    flex:1, 
+    alignItems:'center', 
+    justifyContent:'center'
+  },
+  userInfoContent:{
+    color:'#2e8b57', 
+    fontWeight:'500'
+  },
+  drawerList:{
+    flex:1, 
+    backgroundColor:'#fffacd'
+  },
+  listItem:{
+    height:75,
+    paddingLeft:10, 
+    justifyContent:'center'
+  }
 }); 
 
 AppRegistry.registerComponent('drawer', () => drawer);
